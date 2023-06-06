@@ -1,0 +1,51 @@
+{%- extends "base.html" %}
+{% block content %}
+<div style="margin-left: 40rem; margin-right: 10rem; margin-top: 5rem;">
+    <div class="card" style="margin-top: 5rem; margin-bottom: 5rem; min-width: 60vh; min-height: 5vh;">
+        <div style="margin-right: 5rem; margin-left: 5rem;">
+            <br><b>The Coastal Real Estate Risk Calculator is based on the current trajectory of rising sea levels and
+                assumes
+                that the CO2 emmissions continue to increase at the current rate. The calculator only takes the
+                elevation at
+                a
+                specific location into account and doesn't look at surrounding higher elevations so there is a risk of
+                false
+                positives (there are many dry places in the world that are at or below sea level without direct access
+                to
+                the
+                ocean).
+                This calculator is not for professional use. </b><br><br>
+        </div>
+    </div>
+
+    <CENTER><b>
+            <h3>Projected Sea Levels<br></h3>
+        </b>
+    </CENTER>
+    <div
+        style="min-height:30vh; background-image: url('static/images/NasaChart.png'); background-repeat: no-repeat; width: 85vh; height: 50vh; margin-right: 5rem; margin-left: 5rem; background-size: 100%;">
+    </div>
+    <a href="https://earthobservatory.nasa.gov/images/148494/anticipating-future-sea-levels">
+        <CENTER>https://earthobservatory.nasa.gov/images/148494/anticipating-future-sea-levels</CENTER>
+    </a>
+    <br>
+    <CENTER><b>
+            <h3>Calculator Results on Test Data<br></h3>
+        </b>
+    </CENTER>
+    <div
+        style="min-height:30vh; background-image: url('static/images/ProphetModelPrediction.png'); background-repeat: no-repeat; width: 85vh; height: 50vh; margin-right: 5rem; margin-left: 5rem; background-size: 100%;">
+    </div>
+    <CENTER>Predictions fit the general trend and seasonality well</CENTER>
+    <br>
+
+
+
+</div>
+{%- endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

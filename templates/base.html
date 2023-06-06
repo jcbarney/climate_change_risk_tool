@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+{%- extends "bootstrap/base.html" %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../static/plugins/animation/css/animate.min.css" type="text/css">
+<link rel="stylesheet" href="../static/fonts/feather/css/feather.css" type="text/css">
+<link rel="stylesheet" href="../static/fonts/fontawesome/css/fontawesome-all.min.css" type="text/css">
+<link rel="stylesheet" href="../static/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+{%- endblock %}
+
+{% block navbar %}
+
+<nav class="pcoded-navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar-brand header-logo">
+            <a href="/" class="b-brand">
+                <div class="b-bg">
+                    <i class="feather icon-home"></i>
+                </div>
+                <span class="b-title">Calculator</span>
+            </a>
+        </div>
+        <div class="navbar-content scroll-div">
+            <ul class="nav pcoded-inner-navbar">
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Navigation</label>
+                </li>
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-map"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                </li>
+
+                <li class="nav-item"><a href="/about" class="nav-link"><span class="pcoded-micon"><i
+                                class="feather icon-sidebar"></i></span><span class="pcoded-mtext">About</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+{% endblock %}

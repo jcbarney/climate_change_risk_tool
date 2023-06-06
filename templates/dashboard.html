@@ -1,0 +1,116 @@
+{%- extends "base.html" %}
+
+{% block content %}
+<div style="margin-left: 40rem; margin-right: 10rem; margin-top: 5rem;">
+    <div style="display:flex; flex-direction: row; align-items: stretch;">
+        <div class="col-lg-8 col-xl-8" style="display: fixed;">
+            <div class="card" style="width: 100%;  min-height: 22rem; max-height: 22rem; min-width:500px;">
+                <div class="card-header">
+                    <h5>Location</h5>
+                </div>
+                <div class="card-block">
+                    <div class="input-group mb-3" style="width: 100%">
+                        <input type="text" class="form-control" id="addressText"
+                            placeholder="Enter street, city, state/province, country, postal code (with commas)"
+                            aria-label="Enter Full Address" aria-describedby="basic-addon2">
+                        <div class="input-group-append" style="margin-top: 5rem;">
+                            <button class="searchAddress btn btn-primary" type="button"
+                                style="width: 20%">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xl-4" style="display: fixed;">
+            <div class="card card-event" style="width: 100%;  min-height: 22rem; max-height: 22rem;">
+                <div class="card-block">
+                    <div id="yearsToFlood" class="col" style="margin-top: 5rem;">
+                        <h1 class="f-w-300">
+                            <center>-</center>
+                        </h1>
+                        <span class="d-block text-uppercase">
+                            <center><b>Years Until Underwater*</b></center>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 7rem">
+        <div id="map" style="min-width: 70vh; min-height: 40vh;"></div>
+    </div>
+    <div id="resultText" class="card" style="margin-top: 5rem; margin-bottom: 5rem; min-width: 60vh; min-height: 5vh;">
+        <br>
+        <CENTER><b>Full results will display here</b></CENTER>
+        <br>
+    </div>
+
+</div>
+
+{%- endblock %}
+
+{% block scripts %}
+<script>
+    var longitude = -86.519962
+    var latitude = 39.167438
+    var address
+    var map
+    var message
+    var years
+
+    $(document).ready(function () {
+
+        // initialize the map on the "map" div with a given center and zoom
+        map = L.map('map', {
+            center: [latitude, longitude],
+            zoom: 16
+        });
+        // add the OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        }).addTo(map);
+
+        // show the scale bar on the lower left corner
+        L.control.scale({ imperial: true, metric: true }).addTo(map);
+
+        // show a marker on the map
+        L.marker({ lon: -86.519962, lat: 39.167438 }).bindPopup('Your happy place').addTo(map);
+
+
+        $(document).on('click', '.searchAddress', function () {
+            address = document.getElementById('addressText').value
+            req = $.ajax({
+                url: '/get_data',
+                type: 'POST',
+                data: { address: window.address },
+                async: false,
+                success: function (data) {
+                    longitude = data['longitude'];
+                    latitude = data['latitude'];
+                    message = data['results']
+                    years = data['years']
+                    map.off();
+                    map.remove();
+                    map = L.map('map', {
+                        center: [latitude, longitude],
+                        zoom: 16
+                    });
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+                    }).addTo(map);
+                    L.marker({ lon: longitude, lat: latitude }).bindPopup('Your happy place').addTo(map);
+                    document.getElementById("yearsToFlood").innerHTML = '<h1 class="f-w-300"><center>'.concat(years, '</center></h1><span class="d-block text-uppercase"><center><b>Years Until Underwater*</b></center></span>')
+                    document.getElementById("resultText").innerHTML = "<br><CENTER><b>Results: ".concat(message, "</b></CENTER><br>")
+                }
+            })
+        })
+
+
+    })
+
+
+</script>
+{% endblock %}
